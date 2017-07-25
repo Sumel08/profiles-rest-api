@@ -21,3 +21,34 @@ class PostOwnStatus(permissions.BasePermission):
             return True
 
         return obj.user_profile.id == request.user.id
+
+class ManageOwnEvents(permissions.BasePermission):
+    '''Allow users to update their own events.'''
+
+    def has_permission(self, request, obj):
+        '''Checks the user is trying to update their own events.'''
+
+        print('******')
+        if request.method in permissions.SAFE_METHODS or request.user.id:
+            return True
+
+        return False
+
+    def has_object_permission(self, request, view, obj):
+        '''Checks the user is trying to update their own status.'''
+
+        if request.method in permissions.SAFE_METHODS:
+            return True
+
+        return obj.user_profile.id == request.user.id
+
+class GenericPermissions(permissions.BasePermission):
+
+    def has_permission(self, request, obj):
+        '''Checks the user is trying to update their own events.'''
+
+        print('******')
+        if request.method in permissions.SAFE_METHODS or request.user.id:
+            return True
+
+        return False

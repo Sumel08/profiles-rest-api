@@ -72,3 +72,122 @@ class ProfileFeedItem(models.Model):
         '''Return the model as a string'''
 
         return self.status_text
+
+# Models for WITCOM 2017
+class EventData(models.Model):
+    '''Event model for WITCOM'''
+
+    user_profile = models.ForeignKey('UserProfile', on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    code = models.CharField(max_length=255)
+    description = models.CharField(max_length=255)
+    created_on = models.DateTimeField(auto_now_add=True)
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField()
+    event_image_url = models.URLField(null=True)
+    place = models.ForeignKey('PlaceData', null=True)
+    schedule = models.ForeignKey('ScheduleData', null=True)
+
+    def __str__(self):
+        '''Return the name of the event'''
+
+        return self.name
+
+class ChairsData(models.Model):
+    ''' Model for Chairs in WITCOM 2017'''
+
+    event = models.ForeignKey('EventData')
+    person = models.ForeignKey('PeopleData')
+
+class SketchData(models.Model):
+    event = models.ForeignKey('EventData')
+    image_url = models.URLField()
+    description = models.CharField(max_length=255)
+
+class DevelopersData(models.Model):
+    event = models.ForeignKey('EventData')
+    person = models.ForeignKey('PeopleData')
+
+class ScheduleData(models.Model):
+    created_on = models.DateTimeField(auto_now_add=True)
+    event = models.ForeignKey('EventData')
+
+    def __str__(self):
+
+        return self.event.name
+
+class StreamData(models.Model):
+    url = models.URLField()
+    description = models.CharField(max_length=255)
+    event = models.ForeignKey('EventData')
+
+class SponsorData(models.Model):
+    person = models.ForeignKey('PeopleData')
+    event = models.ForeignKey('EventData')
+
+class ActivityTypeData(models.Model):
+	name = models.CharField(max_length=25)
+	description = models.CharField(max_length=255)
+	created = models.DateTimeField(auto_now_add=True)
+	show_in_app = models.BooleanField(default=False)
+	event = models.ForeignKey('EventData')
+
+class ActivityData(models.Model):
+	title = models.CharField(max_length=255)
+	subtitle = models.CharField(max_length=255)
+	description = models.CharField(max_length=255)
+	notes = models.CharField(max_length=255)
+	price = models.FloatField(null=True)
+	start_date = models.DateTimeField()
+	end_date = models.DateTimeField()
+	activity_type = models.ForeignKey('ActivityTypeData')
+	place = models.ForeignKey('PlaceData')
+	schedule = models.ForeignKey('ScheduleData')
+
+class ActivityPeopleData(models.Model):
+	activity = models.ForeignKey('ActivityData')
+	person = models.ForeignKey('PeopleData')
+
+class PeopleData(models.Model):
+	name = models.CharField(max_length=255)
+	surname = models.CharField(max_length=255)
+	birthdate = models.DateField()
+	photo = models.URLField()
+	resume = models.CharField(max_length=1000)
+	email = models.EmailField(max_length=255)
+	phone = models.CharField(max_length=20)
+	provenance = models.ForeignKey('PlaceData')
+	event = models.ForeignKey('EventData')
+
+class PeopleSocialNetworksData(models.Model):
+	person = models.ForeignKey('PeopleData')
+	social_network = models.ForeignKey('SocialNetworksData')
+
+class PlaceCategoryData(models.Model):
+	name = models.CharField(max_length=255)
+	description = models.CharField(max_length=255)
+	show_in_app = models.BooleanField(default=False)
+	event = models.ForeignKey('EventData')
+
+class PlaceData(models.Model):
+	name = models.CharField(max_length=255)
+	description = models.CharField(max_length=255)
+	longitude = models.CharField(max_length=255)
+	latitude = models.CharField(max_length=255)
+	altitude = models.CharField(max_length=255)
+	indication = models.CharField(max_length=255)
+	additional_info = models.CharField(max_length=255)
+	website = models.URLField()
+	email = models.EmailField()
+	telephone = models.CharField(max_length=20)
+	image = models.URLField()
+	place_category = models.ForeignKey('PlaceCategoryData')
+
+class PlaceSocialNetworksData(models.Model):
+	place = models.ForeignKey('PlaceData')
+	social_networks = models.ForeignKey('SocialNetworksData')
+
+class SocialNetworksData(models.Model):
+	url = models.URLField()
+	domain = models.CharField(max_length=255)
+	event = models.ForeignKey('EventData')

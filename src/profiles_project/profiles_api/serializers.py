@@ -37,3 +37,105 @@ class ProfileFeedItemSerializer(serializers.ModelSerializer):
         model = models.ProfileFeedItem
         fields = ('id', 'user_profile', 'status_text', 'created_on')
         extra_kwargs = {'user_profile': {'read_only': True}}
+
+class EventDataSerializer(serializers.ModelSerializer):
+    '''A serializer for events manage'''
+
+    class Meta:
+        model = models.EventData
+        fields = ('id', 'name', 'code', 'description', 'start_date', 'end_date', 'event_image_url', 'place', 'schedule')
+
+class ChairsDataSerializer(serializers.ModelSerializer):
+    '''A serializer for chairs manage.'''
+
+    class Meta:
+        model = models.ChairsData
+        fields = ('id', 'event', 'person')
+
+class SketchDataSerializer(serializers.ModelSerializer):
+    '''A serializer for sketch event.'''
+
+    class Meta:
+        model = models.SketchData
+        fields = ('id', 'event', 'image_url', 'description')
+
+class DevelopersDataSerializer(serializers.ModelSerializer):
+    '''A serializer for developers event.'''
+
+    class Meta:
+        model = models.DevelopersData
+        fields = ('id', 'event', 'person')
+
+class ScheduleDataSerializer(serializers.ModelSerializer):
+    '''A serializer for schedule data event.'''
+
+    class Meta:
+        model = models.ScheduleData
+        fields = ('id', 'created_on', 'event')
+        extra_kwargs = {'created_on': {'read_only': True}}
+
+class StreamDataSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.StreamData
+        fields = ('id', 'url', 'description', 'event')
+
+class SponsorDataSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.SponsorData
+        fields = ('id', 'person', 'event')
+
+class ActivityTypeDataSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.ActivityTypeData
+        fields = ('id', 'name', 'description', 'created', 'show_in_app', 'event')
+
+class ActivityDataSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.ActivityData
+        fields = ('id', 'title', 'subtitle', 'description', 'notes', 'price', 'start_date', 'end_date', 'activity_type', 'place', 'schedule')
+
+class ActivityPeopleDataSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.ActivityPeopleData
+        fields = ('id', 'activity', 'person')
+
+class PeopleDataSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.PeopleData
+        fields = ('id', 'name', 'surname', 'birthdate', 'photo', 'resume', 'email', 'phone', 'provenance', 'event')
+
+class PeopleSocialNetwoeksDataSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.PeopleSocialNetworksData
+        fields = '__all__'
+
+class PlaceCategoryDataSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.PlaceCategoryData
+        fields = '__all__'
+
+class PlaceDataSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.PlaceData
+        fields = '__all__'
+
+class PlaceSocialNetworksSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.PlaceSocialNetworksData
+        fields = '__all__'
+
+class SocialNetworksSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.SocialNetworksData
+        fields = '__all__'
