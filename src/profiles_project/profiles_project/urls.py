@@ -21,7 +21,6 @@ from profiles_api import templates
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include('profiles_api.urls')),
-    url(r'', templates.dashboard),
     url(r'^login/', templates.login),
-    url(r'^dashboard/', templates.dashboard)
+    url(r'^dashboard/', templates.dashboard),
 ]
