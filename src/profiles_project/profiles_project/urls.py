@@ -22,5 +22,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include('profiles_api.urls')),
     url(r'^login/', templates.login),
+    url(r'^logout/', templates.logout),
+    url(r'^register/', templates.register),
     url(r'^dashboard/', templates.dashboard),
 ]

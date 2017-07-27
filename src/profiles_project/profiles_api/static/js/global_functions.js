@@ -25,3 +25,25 @@ function getCookie(name) {
     }
     return cookieValue;
 }
+
+function logout() {
+  localStorage.setItem('token', null);
+  location.href = 'login';
+}
+
+function goPage(page) {
+  location.href = '/{0}'.format(page);
+}
+
+function logout() {
+  clearLocalStorage();
+  goPage('logout');
+}
+
+$( "#events_select" ).change(function() {
+  localStorage.setItem(event_selected, $('#events_select').val());
+});
+
+function clearLocalStorage() {
+  localStorage.removeItem(event_selected);
+}

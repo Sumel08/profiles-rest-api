@@ -3,9 +3,10 @@
 * data: Datos que se enviarán en el cuarpo de la petición (Array)
 * header: Array de headers de la petición, se agrega el permiso de autenticación.
 **/
-function apiRequest(data, headers, server, service, pk) {
+function apiRequest(data, headers, server, service, pk, auth) {
 
-  //headers['authorization'] = 'Bearer {0}'.format(localStorage.getItem('token'));
+  if (auth)
+    headers['Authorization'] = 'token {0}'.format(localStorage.getItem('token'));
   headers['cache-control'] = 'no-cache';
 
 	var settings = {
@@ -23,7 +24,7 @@ function apiRequest(data, headers, server, service, pk) {
 
     },
     success: function (response) {
-      console.log(response);
+      //console.log(response);
     },
     error: function (response) {
       console.log(response);

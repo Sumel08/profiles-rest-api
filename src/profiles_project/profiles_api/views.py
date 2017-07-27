@@ -10,6 +10,8 @@ from rest_framework.authtoken.serializers import AuthTokenSerializer
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import detail_route, list_route
+from django.contrib.auth import authenticate, login
 
 from . import serializers
 from . import models
@@ -127,7 +129,10 @@ class LoginViewSet(viewsets.ViewSet):
 
     def create(self, request):
         '''Use the ObtainAuthToken APIView to validate and create a token'''
-
+        print(request.data)
+        user = authenticate(request, username=request.data['username'], password=request.data['password'])
+        if user is not None:
+            login(request, user)
         return ObtainAuthToken().post(request)
 
 class UserProfileFeedViewSet(viewsets.ModelViewSet):
@@ -155,6 +160,13 @@ class EventDataViewSet(viewsets.ModelViewSet):
         '''Sets the user profile to the logged in user.'''
 
         serializer.save(user_profile=self.request.user)
+
+    @list_route(methods=['GET'], permission_classes=[IsAuthenticated])
+    def getMyEvents(self, request):
+        print(self.request.user)
+        events = models.EventData.objects.filter(user_profile=request.user)
+        print(events)
+        return Response(serializers.EventDataSerializer(events, many=True).data)
 
 class ChairsDataViewSet(viewsets.ModelViewSet):
     '''Handles creating, reading and updating chairs.'''

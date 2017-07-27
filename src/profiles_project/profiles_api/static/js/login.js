@@ -20,7 +20,7 @@ function request_login() {
 
     $.ajax(settings).done(function (response) {
         localStorage.setItem('token', response.token);
-        location.href = '/dashboard'
+        goPage('dashboard');
     });
   }
 }
