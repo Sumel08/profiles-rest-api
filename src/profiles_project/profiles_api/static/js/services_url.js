@@ -8,7 +8,7 @@ var service_register = {
   'url': 'profile/'
 }
 
-var service_myEvents = {
+var service_myEvent = {
   'method': 'GET',
-  'url': 'event/getMyEvents'
+  'url': 'event/getMyEvent'
 }

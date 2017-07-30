@@ -25,4 +25,6 @@ urlpatterns = [
     url(r'^logout/', templates.logout),
     url(r'^register/', templates.register),
     url(r'^dashboard/', templates.dashboard),
+    url(r'^create_event/', templates.create_event),
+    url(r'^$', templates.dashboard),
 ]

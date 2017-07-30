@@ -162,11 +162,14 @@ class EventDataViewSet(viewsets.ModelViewSet):
         serializer.save(user_profile=self.request.user)
 
     @list_route(methods=['GET'], permission_classes=[IsAuthenticated])
-    def getMyEvents(self, request):
+    def getMyEvent(self, request):
         print(self.request.user)
-        events = models.EventData.objects.filter(user_profile=request.user)
-        print(events)
-        return Response(serializers.EventDataSerializer(events, many=True).data)
+        event = models.EventData.objects.filter(user_profile=request.user).first()
+        if event:
+            print(event)
+            return Response(serializers.EventDataSerializer(event).data)
+        else:
+            return Response({}, status=status.HTTP_404_NOT_FOUND)
 
 class ChairsDataViewSet(viewsets.ModelViewSet):
     '''Handles creating, reading and updating chairs.'''
