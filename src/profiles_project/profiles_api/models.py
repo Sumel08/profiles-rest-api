@@ -85,6 +85,7 @@ class EventData(models.Model):
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
     event_image_url = models.URLField(null=True)
+    event_image = models.ImageField(null=True)
     place = models.ForeignKey('PlaceData', null=True)
     schedule = models.ForeignKey('ScheduleData', null=True)
 

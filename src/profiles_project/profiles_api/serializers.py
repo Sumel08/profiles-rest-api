@@ -43,7 +43,7 @@ class EventDataSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.EventData
-        fields = ('id', 'name', 'code', 'description', 'start_date', 'end_date', 'event_image_url', 'place', 'schedule')
+        fields = ('id', 'user_profile', 'name', 'code', 'description', 'start_date', 'end_date', 'event_image_url', 'place', 'schedule', 'event_image')
 
 class ChairsDataSerializer(serializers.ModelSerializer):
     '''A serializer for chairs manage.'''

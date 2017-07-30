@@ -18,6 +18,9 @@ from django.conf.urls import include
 from django.contrib import admin
 from profiles_api import templates
 
+from django.conf.urls.static import static
+from django.conf import settings
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^api/', include('profiles_api.urls')),
@@ -27,4 +30,4 @@ urlpatterns = [
     url(r'^dashboard/', templates.dashboard),
     url(r'^create_event/', templates.create_event),
     url(r'^$', templates.dashboard),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
