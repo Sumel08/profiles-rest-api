@@ -9,5 +9,6 @@ $(document).ready(function() {
       $('#event_title').html(response.name);
   }).fail(function(jqXHR, textStatus, errorThrown) {
       goPage('create_event');
+      //console.log(textStatus);
   });
 });

@@ -12,6 +12,7 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import detail_route, list_route
 from django.contrib.auth import authenticate, login
+from django.shortcuts import get_object_or_404
 
 from . import serializers
 from . import models
@@ -121,6 +122,14 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     permission_classes = (permissions.UpdateOwnProfile,)
     filter_backends = (filters.SearchFilter,)
     search_fields = ('name', 'email',)
+
+    @list_route(methods=['GET'], permission_classes=[IsAuthenticated])
+    def event(self, request):
+        print('Estamos obteniendo el evento---------------------')
+        print(request.user)
+        event = get_object_or_404(models.EventData, user_profile=request.user)
+
+        return Response(serializers.EventDataSerializer(event).data)
 
 class LoginViewSet(viewsets.ViewSet):
     '''Checks email and password and returns an auth token'''
