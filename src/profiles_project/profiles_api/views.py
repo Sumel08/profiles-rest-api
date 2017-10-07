@@ -161,6 +161,18 @@ class EventDataViewSet(viewsets.ModelViewSet):
 
         serializer.save(user_profile=self.request.user)
 
+    def create(self, request):
+        serializer = serializers.EventPOSTSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        try:
+            resp = serializer.create(request.user)
+            return Response(resp)
+        except Exception as err:
+            return Response({'detail':str(err)}, status=500)
+
+        return Response(serializer.create(request.user))
+
     @list_route(methods=['GET'], permission_classes=[IsAuthenticated])
     def getMyEvent(self, request):
         print(self.request.user)
@@ -278,4 +290,11 @@ class SocialNetworksDataViewSet(viewsets.ModelViewSet):
     authentication_classes = (TokenAuthentication,)
     serializer_class = serializers.SocialNetworksSerializer
     queryset = models.SocialNetworksData.objects.all()
+    permission_classes = (permissions.GenericPermissions,)
+
+class ImageDataViewSet(viewsets.ModelViewSet):
+
+    authentication_classes = (TokenAuthentication,)
+    serializer_class = serializers.ImageSerializer
+    queryset = models.ImageData.objects.all()
     permission_classes = (permissions.GenericPermissions,)

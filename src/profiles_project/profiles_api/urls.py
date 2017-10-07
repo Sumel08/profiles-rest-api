@@ -26,6 +26,7 @@ router.register('placeCategory', views.PlaceCategoryDataViewSet)
 router.register('place', views.PlaceDataViewSet)
 router.register('placeSocialNetworks', views.PlaceSocialNetworksDataViewSet)
 router.register('socialNetworks', views.SocialNetworksDataViewSet)
+router.register('image', views.ImageDataViewSet)
 
 urlpatterns = [
     url(r'^hello-view/', views.HelloApiView.as_view()),

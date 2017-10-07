@@ -1,6 +1,8 @@
 from rest_framework import serializers
 
 from . import models
+import datetime
+import os
 
 class HelloSerializer(serializers.Serializer):
     '''Serializes a name field for testing our APIView'''
@@ -43,7 +45,7 @@ class EventDataSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.EventData
-        fields = ('id', 'user_profile', 'name', 'code', 'description', 'start_date', 'end_date', 'event_image_url', 'place', 'schedule', 'event_image')
+        fields = ('id', 'user_profile', 'name', 'code', 'description', 'start_date', 'end_date', 'place', 'schedule', 'event_image')
 
 class ChairsDataSerializer(serializers.ModelSerializer):
     '''A serializer for chairs manage.'''
@@ -139,3 +141,35 @@ class SocialNetworksSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.SocialNetworksData
         fields = '__all__'
+
+class ImageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.ImageData
+        fields = '__all__'
+
+class EventPOSTSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.EventData
+        fields = ('name', 'code', 'description', 'start_date', 'end_date', 'event_image')
+
+    def create(self, user):
+
+        print('Data')
+        print(user)
+        print(self.data)
+        event = models.EventData(
+            user_profile=user,
+            name=self.data.get('name'),
+            code=self.data.get('code'),
+            description=self.data.get('description'),
+            start_date=self.data.get('start_date'),
+            end_date=self.data.get('end_date'),
+            event_image=models.ImageData.objects.get(pk=self.data.get('event_image'))
+            )
+
+        print(event)
+        event.save()
+
+        return EventDataSerializer(event).data

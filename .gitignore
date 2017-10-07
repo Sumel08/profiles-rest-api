@@ -100,3 +100,5 @@ ENV/
 
 # settings
 settings.py
+
+media/

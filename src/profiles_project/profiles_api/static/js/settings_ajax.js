@@ -27,7 +27,9 @@ function apiRequest(data, headers, server, service, pk, auth) {
       //console.log(response);
     },
     error: function (response) {
+      console.log('Ajax request fail');
       console.log(response);
+      // swal("Error!", response.responseText, "error");
     }
 	}
 
