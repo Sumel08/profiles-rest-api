@@ -266,6 +266,34 @@ class PeopleDataViewSet(viewsets.ModelViewSet):
     queryset = models.PeopleData.objects.all()
     permission_classes = (permissions.GenericPermissions,)
 
+    def list(self, request):
+        event = models.EventData.objects.get(user_profile=request.user)
+        people = models.PeopleData.objects.filter(event=event)
+
+        return Response(serializers.PeopleDataSerializer(people, many=True).data)
+
+    def create(self, request):
+        serializer = serializers.PeoplePOSTSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        try:
+            resp = serializer.create(request.user)
+            return Response(resp)
+        except Exception as err:
+            return Response({'detail': str(err)}, status=500)
+
+    def retrieve(self, request, pk):
+        try:
+            event = models.EventData.objects.get(user_profile=request.user)
+            person = models.PeopleData.objects.get(event=event, pk=pk)
+            return Response(serializers.PeopleDataSerializer(person).data)
+        except models.EventData.DoesNotExist as err:
+            return Response({'detail': str(err)}, status=404)
+        except models.PeopleData.DoesNotExist as err:
+            return Response({'detail': str(err)}, status=404)
+        except Exception as err:
+            return Response({'detail': str(err)}, status=500)
+
 class PeopleSocialNetworksDataViewSet(viewsets.ModelViewSet):
 
     authentication_classes = (TokenAuthentication,)

@@ -65,13 +65,13 @@
 	                        <p>Schedule</p>
 	                    </a>
 	                </li>
-	                <li class="active">
+	                <li >
 	                    <a href="/places/">
 	                        <i class="material-icons">library_books</i>
 	                        <p>Places</p>
 	                    </a>
 	                </li>
-	                <li>
+	                <li class="active">
 	                    <a href="/people/">
 	                        <i class="material-icons">person</i>
 	                        <p>People</p>
@@ -169,17 +169,17 @@
 											<span class="nav-tabs-title">Tasks:</span>
 											<ul class="nav nav-tabs" data-tabs="tabs">
 												<li class="active">
-													<a href="#place-tab" data-toggle="tab">
+													<a href="#people-tab" data-toggle="tab">
 														<i class="material-icons">bug_report</i>
-														Places
+														People
 													<div class="ripple-container"></div></a>
 												</li>
-												<li class="">
+												<!-- <li class="">
 													<a href="#placeCategory-tab" data-toggle="tab">
 														<i class="material-icons">code</i>
 														Place category
 													<div class="ripple-container"></div></a>
-												</li>
+												</li> -->
 											</ul>
 										</div>
 									</div>
@@ -187,21 +187,21 @@
 
 								<div class="card-content">
 									<div class="tab-content">
-										<div class="tab-pane active" id="place-tab">
+										<div class="tab-pane active" id="people-tab">
 											<table class="table table-hover">
 													<thead class="text-warning">
 														<th></th>
 														<th>Name</th>
 														<th>Email</th>
 														<th>Telephone</th>
-														<th>Category</th>
+														<th>Provenance</th>
 														<th></th>
 													</thead>
 													<tbody>
 
 													</tbody>
 											</table>
-											<button type="button" title="Create Place Category" class="btn btn-primary pull-right" onclick="$('#createPlace').modal('show')">Create</button>
+											<button type="button" title="Create Person" class="btn btn-primary pull-right" onclick="$('#createPeople').modal('show')">Create</button>
 										</div>
 										<div class="tab-pane" id="placeCategory-tab">
 											<table class="table table-hover">
@@ -273,7 +273,7 @@
 	</div>
 
 	<!-- Modal -->
-  <div class="modal fade" id="createPlace" role="dialog">
+  <div class="modal fade" id="createPeople" role="dialog">
     <div class="modal-dialog">
 
       <!-- Modal content-->
@@ -282,37 +282,37 @@
 					<div class="col-lg-6 col-md-12">
 						<div class="card">
 								<div class="card-header" data-background-color="orange">
-										<h4 class="title">Place</h4>
-										<p class="category">Create new place for your event</p>
+										<h4 class="title">People</h4>
+										<p class="category">Create new people for your event</p>
 								</div>
 								<div class="card-content">
-									<form id="create_place_form" name="login_form" method="POST">
+									<form id="create_people_form" name="login_form" method="POST">
 										<div class="row">
 												<div class="col-md-6">
 													<div class="form-group label-floating">
-														<label class="control-label">Place Name</label>
-														<input id="placeName" type="text" class="form-control" required>
+														<label class="control-label">Name</label>
+														<input id="personName" type="text" class="form-control" required>
 													</div>
 												</div>
+												<div class="col-md-6">
+													<div class="form-group label-floating">
+														<label class="control-label">Surname</label>
+														<input id="personSurname" type="text" class="form-control" required>
+													</div>
+												</div>
+										</div>
+										<div class="row">
+
 												<div class="col-md-6">
 													<div class="form-group label-floating">
 														<label class="control-label">Email</label>
-														<input id="placeEmail" type="email" class="form-control" required>
-													</div>
-												</div>
-										</div>
-										<div class="row">
-
-												<div class="col-md-6">
-													<div class="form-group label-floating">
-														<label class="control-label">Telephone</label>
-														<input id="placeTelephone" type="text" class="form-control" required>
+														<input id="personEmail" type="email" class="form-control" required>
 													</div>
                         </div>
 												<div class="col-md-6">
 													<div class="form-group label-floating">
-														<label class="control-label">Website</label>
-														<input id="placeWebsite" type="url" class="form-control" required>
+														<label class="control-label">Birthdate</label>
+														<input id="personBirthdate" type="date" class="form-control" required>
 													</div>
 												</div>
 										</div>
@@ -321,58 +321,30 @@
 
 												<div class="col-md-6">
 													<div class="form-group label-floating">
-														<label class="control-label">Latitude</label>
-														<input id="placeLatitude" type="text" class="form-control" required>
+														<label class="control-label">Phone</label>
+														<input id="personPhone" type="text" class="form-control" required>
 													</div>
                         </div>
 												<div class="col-md-6">
 													<div class="form-group label-floating">
-														<label class="control-label">Longitude</label>
-														<input id="placeLongitude" type="text" class="form-control" required>
-													</div>
-												</div>
-										</div>
-
-										<div class="row">
-											<div class="col-md-6">
-												<div class="form-group label-floating">
-													<label class="control-label">Altitude</label>
-													<input id="placeAltitude" type="text" class="form-control" required>
-												</div>
-											</div>
-												<div class="col-md-6">
-													<div class="form-group label-floating">
-														<select id="select_placeCategory" class="selectpicker" data-style="btn btn-primary btn-round" title="Single Select" data-size="7">
-	                              <option disabled selected>Place category</option>
+														<select id="select_personProvenance" class="selectpicker" data-style="btn btn-primary btn-round" title="Single Select" data-size="7">
+	                              <option disabled selected>Provenance</option>
 	                          </select>
 													</div>
                         </div>
 										</div>
+
 										<div class="row">
 											<div class="col-md-6">
 												<div class="form-group label-floating">
-													<label class="control-label">Description</label>
-													<textarea id="placeDescription" type="text" class="form-control" required></textarea>
+													<label class="control-label">Resume</label>
+													<textarea id="personResume" type="text" class="form-control" required></textarea>
 												</div>
 											</div>
 											<div class="col-md-6">
 												<div class="form-group label-floating">
-													<label class="control-label">Additional info</label>
-													<textarea id="placeAdditional" type="text" class="form-control" required></textarea>
-												</div>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-md-6">
-												<div class="form-group label-floating">
-													<label class="control-label">Place Image</label>
-													<input id="place_image" type="file" class="form-control" required>
-												</div>
-											</div>
-											<div class="col-md-6">
-												<div class="form-group label-floating">
-													<label class="control-label">Indication</label>
-													<input id="placeIndication" type="text" class="form-control" required>
+													<label class="control-label">Photo</label>
+													<input id="personPhoto" type="file" class="form-control" required>
 												</div>
 											</div>
 										</div>
@@ -380,7 +352,7 @@
 									</form>
 
 									<button type="button" data-dismiss="modal" class="btn btn-primary pull-left">Close</button>
-									<button type="button" onclick="createPlace()" class="btn btn-primary pull-right">Create Place</button>
+									<button type="button" onclick="createPeople()" class="btn btn-primary pull-right">Create Person</button>
 								</div>
 						</div>
 					</div>
@@ -472,7 +444,7 @@
   <script src="{% static 'js/services_url.js' %}"></script>
   <script src="{% static 'js/settings_ajax.js' %}"></script>
 	<script src="{% static 'js/global_functions.js' %}"></script>
-	<script src="{% static 'js/places.js' %}"></script>
+	<script src="{% static 'js/people.js' %}"></script>
 
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 

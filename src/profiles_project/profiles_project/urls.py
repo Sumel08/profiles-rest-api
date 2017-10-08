@@ -30,5 +30,6 @@ urlpatterns = [
     url(r'^dashboard/', templates.dashboard),
     url(r'^create_event/', templates.create_event),
     url(r'^places/', templates.places),
+    url(r'^people/', templates.people),
     url(r'^$', templates.dashboard),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

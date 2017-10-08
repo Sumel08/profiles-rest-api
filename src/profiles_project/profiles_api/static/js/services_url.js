@@ -53,6 +53,16 @@ var service_deletePlaceCategory = {
   'url': 'placeCategory/'
 }
 
+var service_createPeople = {
+  'method': 'POST',
+  'url': 'people/'
+}
+
+var service_getPeople = {
+  'method': 'GET',
+  'url': 'people/'
+}
+
 function saveImage(file, callback) {
   var form = new FormData();
   form.append("image", file);
