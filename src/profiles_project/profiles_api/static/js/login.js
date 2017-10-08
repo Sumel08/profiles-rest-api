@@ -21,6 +21,8 @@ function request_login() {
     $.ajax(settings).done(function (response) {
         localStorage.setItem('token', response.token);
         goPage('dashboard');
+    }).fail(function (response) {
+      swal('Error', 'Something went wrong', 'error');
     });
   }
 }

@@ -124,6 +124,26 @@ class PlaceCategoryDataSerializer(serializers.ModelSerializer):
         model = models.PlaceCategoryData
         fields = '__all__'
 
+class PlaceCategoryPOSTSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.PlaceCategoryData
+        fields = ('name', 'description', 'show_in_app')
+        extra_kwargs = {'show_in_app': {'required': True}}
+
+    def create(self, user):
+        event = models.EventData.objects.get(user_profile=user)
+        placeCategory = models.PlaceCategoryData(
+            name = self.data.get('name'),
+            description = self.data.get('description'),
+            show_in_app = self.data.get('show_in_app'),
+            event = event
+        )
+
+        placeCategory.save()
+
+        return PlaceCategoryDataSerializer(placeCategory).data
+
 class PlaceDataSerializer(serializers.ModelSerializer):
 
     class Meta:

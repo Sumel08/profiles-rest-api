@@ -63,33 +63,40 @@
                           <div class="row">
                               <div class="col-md-12">
                                 <div class="form-group label-floating">
-                                  <label class="control-label">Email address</label>
-                                  <input id="email" type="email" class="form-control" required>
+                                  <label class="control-label">Description</label>
+                                  <textarea id="description" type="text" class="form-control" required></textarea>
                                 </div>
                               </div>
                           </div>
 
-                          <div class="row">
-                              <div class="col-md-12">
-                                <div class="form-group label-floating">
-                                  <label class="control-label">Password</label>
-                                  <input id="password" type="password" class="form-control" required>
-                                </div>
+													<div class="row">
+														<div class="col-md-6">
+															<div class="form-group label-floating">
+                                <label class="control-label">Start date</label>
+                                <input id="start_date" type="datetime-local" class="form-control" required>
                               </div>
-                          </div>
+														</div>
+														<div class="col-md-6">
+															<div class="form-group label-floating">
+                                <label class="control-label">End date</label>
+                                <input id="end_date" type="datetime-local" class="form-control" required>
+                              </div>
+														</div>
+													</div>
 
                           <div class="row">
                               <div class="col-md-12">
                                 <div class="form-group label-floating">
-                                  <label class="control-label">Confirm your password</label>
-                                  <input id="password_confirm" type="password" class="form-control" required>
+                                  <label class="control-label">Event Image</label>
+                                  <input id="event_image" type="file" class="form-control" required>
                                 </div>
                               </div>
                           </div>
+													<hr>
+													<button type="button" onclick="goPage('logout')" class="btn btn-primary pull-left">Log out</button>
+		                      <button type="button" onclick="create_event()" class="btn btn-primary pull-right">Create Event</button>
                       </form>
 
-                      <button onclick="goPage('login')" class="btn btn-primary pull-left">Log in</button>
-                      <button onclick="request_register()" class="btn btn-primary pull-right">Register</button>
                   </div>
               </div>
 						</div>
@@ -152,6 +159,8 @@
 
 	<!-- Material Dashboard DEMO methods, don't include it in your project! -->
 	<script src="{% static 'js/demo.js' %}"></script>
+
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
   <script src="{% static 'js/constants.js' %}"></script>
   <script src="{% static 'js/services_url.js' %}"></script>
