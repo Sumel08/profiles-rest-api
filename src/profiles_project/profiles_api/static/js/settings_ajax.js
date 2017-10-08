@@ -12,7 +12,7 @@ function apiRequest(data, headers, server, service, pk, auth) {
 	var settings = {
 		"async": true,
     "crossDomain": true,
-    "url": server + service.url,
+    "url": server + service.url + pk,
     "method": service.method,
     "headers": headers,
     "processData": false,

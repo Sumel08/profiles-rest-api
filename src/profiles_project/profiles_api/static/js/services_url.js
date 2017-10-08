@@ -23,6 +23,21 @@ var service_createImage = {
   'url': 'image/'
 }
 
+var service_getPlace = {
+  'method': 'GET',
+  'url': 'place/'
+}
+
+var service_createPlace = {
+  'method': 'POST',
+  'url': 'place/'
+}
+
+var service_deletePlace = {
+  'method': 'DELETE',
+  'url': 'place/'
+}
+
 var service_getPlaceCategory = {
   'method': 'GET',
   'url': 'placeCategory/'
@@ -30,6 +45,11 @@ var service_getPlaceCategory = {
 
 var service_postPlaceCategory = {
   'method': 'POST',
+  'url': 'placeCategory/'
+}
+
+var service_deletePlaceCategory = {
+  'method': 'DELETE',
   'url': 'placeCategory/'
 }
 
