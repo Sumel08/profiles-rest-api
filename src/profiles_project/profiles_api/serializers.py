@@ -4,6 +4,8 @@ from . import models
 import datetime
 import os
 
+from django.conf import settings
+
 class HelloSerializer(serializers.Serializer):
     '''Serializes a name field for testing our APIView'''
 
@@ -146,9 +148,18 @@ class PlaceCategoryPOSTSerializer(serializers.ModelSerializer):
 
 class PlaceDataSerializer(serializers.ModelSerializer):
 
+    image_url = serializers.SerializerMethodField()
+    place_category_name = serializers.SerializerMethodField()
+
     class Meta:
         model = models.PlaceData
         fields = '__all__'
+
+    def get_image_url(self, obj):
+        return ImageSerializer(obj.image).data.get('image')
+
+    def get_place_category_name(self, obj):
+        return obj.place_category.name
 
 class PlaceSocialNetworksSerializer(serializers.ModelSerializer):
 

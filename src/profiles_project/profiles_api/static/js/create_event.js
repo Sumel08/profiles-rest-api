@@ -17,7 +17,7 @@ function create_event() {
       var end_date = $('#end_date').val();
 
       var form = new FormData();
-      form.append("event_image", "1");
+      form.append("event_image", image_saved.id);
       form.append("start_date", start_date);
       form.append("end_date", end_date);
       form.append("name", event_name);

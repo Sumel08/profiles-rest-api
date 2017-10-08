@@ -322,6 +322,34 @@ class PlaceDataViewSet(viewsets.ModelViewSet):
     queryset = models.PlaceData.objects.all()
     permission_classes = (permissions.GenericPermissions,)
 
+    def list(self, request):
+        try:
+            event = models.EventData.objects.get(user_profile=request.user)
+            place_categories = models.PlaceCategoryData.objects.filter(event=event)
+            places = models.PlaceData.objects.filter(place_category__in=place_categories)
+            return Response(serializers.PlaceDataSerializer(places, many=True).data)
+        except Exception as err:
+            return Response({'detail': str(err)}, status=500)
+
+    def retrieve(self, request, pk):
+        try:
+            event = models.EventData.objects.get(user_profile=request.user)
+            place_categories = models.PlaceCategoryData.objects.filter(event=event)
+            places = models.PlaceData.objects.get(place_category__in=place_categories, pk=pk)
+            return Response(serializers.PlaceDataSerializer(places).data)
+        except Exception as err:
+            return Response({'detail': str(err)}, status=500)
+
+    def destroy(self, request, pk):
+        try:
+            event = models.EventData.objects.get(user_profile=request.user)
+            place_categories = models.PlaceCategoryData.objects.filter(event=event)
+            places = models.PlaceData.objects.get(place_category__in=place_categories, pk=pk)
+            places.delete()
+            return Response(serializers.PlaceDataSerializer(places).data)
+        except Exception as err:
+            return Response({'detail': str(err)}, status=500)
+
 class PlaceSocialNetworksDataViewSet(viewsets.ModelViewSet):
 
     authentication_classes = (TokenAuthentication,)
