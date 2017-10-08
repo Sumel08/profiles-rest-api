@@ -110,9 +110,43 @@ class ActivityPeopleDataSerializer(serializers.ModelSerializer):
 
 class PeopleDataSerializer(serializers.ModelSerializer):
 
+    photo_url = serializers.SerializerMethodField()
+    provenance_name = serializers.SerializerMethodField()
+
     class Meta:
         model = models.PeopleData
-        fields = ('id', 'name', 'surname', 'birthdate', 'photo', 'resume', 'email', 'phone', 'provenance', 'event')
+        fields = ('id', 'name', 'surname', 'birthdate', 'photo', 'resume', 'email', 'phone', 'provenance', 'event', 'photo_url', 'provenance_name')
+
+    def get_photo_url(self, obj):
+        return ImageSerializer(obj.photo).data.get('image')
+
+    def get_provenance_name(self, obj):
+        return obj.provenance.name
+
+class PeoplePOSTSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model= models.PeopleData
+        fields = ('name', 'surname', 'birthdate', 'photo', 'resume', 'email', 'phone', 'provenance')
+
+    def create(self, user):
+        event = models.EventData.objects.get(user_profile=user)
+
+        person = models.PeopleData(
+            name = self.data.get('name'),
+            surname = self.data.get('surname'),
+            birthdate = self.data.get('birthdate'),
+            photo = models.ImageData.objects.get(pk=self.data.get('photo')),
+            resume = self.data.get('resume'),
+            email = self.data.get('email'),
+            phone = self.data.get('phone'),
+            provenance = models.PlaceData.objects.get(pk=self.data.get('provenance')),
+            event = event
+        )
+
+        person.save()
+
+        return PeopleDataSerializer(person).data
 
 class PeopleSocialNetwoeksDataSerializer(serializers.ModelSerializer):
 
