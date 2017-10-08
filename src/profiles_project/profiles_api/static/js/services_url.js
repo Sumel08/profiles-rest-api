@@ -23,6 +23,16 @@ var service_createImage = {
   'url': 'image/'
 }
 
+var service_getPlaceCategory = {
+  'method': 'GET',
+  'url': 'placeCategory/'
+}
+
+var service_postPlaceCategory = {
+  'method': 'POST',
+  'url': 'placeCategory/'
+}
+
 function saveImage(file, callback) {
   var form = new FormData();
   form.append("image", file);
@@ -41,5 +51,18 @@ function saveImage(file, callback) {
   }).fail(function (response) {
     console.log('Error subiendo imagen');
     console.log(response);
+  });
+}
+
+function getEventName() {
+  var data = {};
+  var headers = {};
+
+  var settings = apiRequest(data, headers, server_ip, service_myEvent, '', true);
+
+  $.ajax(settings).done(function (response) {
+      $('#event_title').html(response.name);
+  }).fail(function(jqXHR, textStatus, errorThrown) {
+      goPage('create_event');
   });
 }

@@ -278,7 +278,42 @@ class PlaceCategoryDataViewSet(viewsets.ModelViewSet):
     authentication_classes = (TokenAuthentication,)
     serializer_class = serializers.PlaceCategoryDataSerializer
     queryset = models.PlaceCategoryData.objects.all()
-    permission_classes = (permissions.GenericPermissions,)
+    permission_classes = (permissions.GenericPermissions,IsAuthenticated)
+
+    def list(self, request):
+        try:
+            event = models.EventData.objects.get(user_profile=request.user)
+            place_categories = models.PlaceCategoryData.objects.filter(event=event)
+            return Response(serializers.PlaceCategoryDataSerializer(place_categories, many=True).data)
+        except Exception as err:
+            return Response({'detail': str(err)}, status=500)
+
+    def retrieve(self, request, pk):
+        event = get_object_or_404(models.EventData, user_profile=request.user)
+        try:
+            place_category = models.PlaceCategoryData.objects.get(pk=pk, event=event)
+            return Response(serializers.PlaceCategoryDataSerializer(place_category).data)
+        except models.PlaceCategoryData.DoesNotExist as err:
+            return Response({'detail': str(err)}, status=404)
+
+    def create(self, request):
+        serializer = serializers.PlaceCategoryPOSTSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        try:
+            resp = serializer.create(request.user)
+            return Response(resp)
+        except Exception as err:
+            return Response({'detail': str(err)}, status=500)
+
+    def destroy(self, request, pk):
+        event = get_object_or_404(models.EventData, user_profile=request.user)
+        try:
+            place_category = models.PlaceCategoryData.objects.get(pk=pk, event=event)
+            place_category.delete()
+            return Response(serializers.PlaceCategoryDataSerializer(place_category).data)
+        except models.PlaceCategoryData.DoesNotExist as err:
+            return Response({'detail': str(err)}, status=404)
 
 class PlaceDataViewSet(viewsets.ModelViewSet):
 
