@@ -19,6 +19,11 @@ def dashboard(request):
     return render(request, 'dashboard.html', {'user': request.user})
 
 @login_required
+def event(request):
+
+    return render(request, 'event.html', {'user': request.user})
+
+@login_required
 def places(request):
 
     return render(request, 'places.html', {'user': request.user})

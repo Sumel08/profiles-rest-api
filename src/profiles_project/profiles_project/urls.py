@@ -32,5 +32,6 @@ urlpatterns = [
     url(r'^places/', templates.places),
     url(r'^people/', templates.people),
     url(r'^activities/', templates.activities),
+    url(r'^event/', templates.event),
     url(r'^$', templates.dashboard),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

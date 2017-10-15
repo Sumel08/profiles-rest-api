@@ -182,6 +182,16 @@ class EventDataViewSet(viewsets.ModelViewSet):
 
         return Response(serializer.create(request.user))
 
+    def partial_update(self, request, pk):
+        serializer = serializers.EventPATCHSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        try:
+            result = serializer.partial_update(request.user, pk)
+            return Response(result)
+        except Exception as err:
+            return Response({'detail': str(err)}, status=500)
+
     @list_route(methods=['GET'], permission_classes=[IsAuthenticated])
     def getMyEvent(self, request):
         print(self.request.user)

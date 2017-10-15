@@ -18,6 +18,11 @@ var service_createEvent = {
   'url': 'event/'
 }
 
+var service_patchEvent = {
+  'method': 'PATCH',
+  'url': 'event/'
+}
+
 var service_createImage = {
   'method': 'POST',
   'url': 'image/'

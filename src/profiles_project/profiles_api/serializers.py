@@ -46,13 +46,17 @@ class EventDataSerializer(serializers.ModelSerializer):
     '''A serializer for events manage'''
 
     event_image_url = serializers.SerializerMethodField()
+    event_date = serializers.SerializerMethodField()
 
     class Meta:
         model = models.EventData
-        fields = ('id', 'user_profile', 'name', 'code', 'description', 'start_date', 'end_date', 'place', 'schedule', 'event_image', 'event_image_url')
+        fields = ('id', 'user_profile', 'name', 'code', 'description', 'start_date', 'end_date', 'place', 'schedule', 'event_image', 'event_image_url', 'event_date')
 
     def get_event_image_url(self, obj):
         return ImageSerializer(obj.event_image).data.get('image')
+
+    def get_event_date(self, obj):
+        return obj.start_date.strftime("%A %B %d") + ' - ' + obj.end_date.strftime("%A %B %d")
 
 class ChairsDataSerializer(serializers.ModelSerializer):
     '''A serializer for chairs manage.'''
@@ -346,5 +350,33 @@ class EventPOSTSerializer(serializers.ModelSerializer):
         )
 
         schedule.save()
+
+        return EventDataSerializer(event).data
+
+class EventPATCHSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.EventData
+        fields = ('name', 'code', 'description', 'start_date', 'end_date', 'place')
+        extra_kwargs = {
+            'name': {'required': False},
+            'code': {'required': False},
+            'description': {'required': False},
+            'start_date': {'required': False},
+            'end_date': {'required': False},
+            'place': {'required': False}
+        }
+
+    def partial_update(self, user, pk):
+
+        event = models.EventData.objects.get(id=pk, user_profile=user)
+        print(self.data.get('place'))
+        #
+        if self.data.get('place'):
+            placeCateory = models.PlaceCategoryData.objects.filter(event=event)
+            place = models.PlaceData.objects.get(id=self.data.get('place'), place_category__in=placeCateory)
+            event.place = place
+
+        event.save()
 
         return EventDataSerializer(event).data
