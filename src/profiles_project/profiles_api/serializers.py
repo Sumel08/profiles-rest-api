@@ -144,7 +144,7 @@ class ActivityDataSerializer(serializers.ModelSerializer):
         return obj.activity_type.name
 
     def get_date(self, obj):
-        return str(obj.start_date) + ' - ' + str(obj.end_date)
+        return obj.start_date.strftime("%a %b %d %H:%M") + ' - ' + obj.end_date.strftime("%a %b %d %H:%M")
 
     def get_place_name(self, obj):
         return obj.place.name

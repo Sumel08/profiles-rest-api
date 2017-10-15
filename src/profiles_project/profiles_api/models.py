@@ -139,7 +139,7 @@ class ActivityTypeData(models.Model):
 class ActivityData(models.Model):
 	title = models.CharField(max_length=255)
 	subtitle = models.CharField(max_length=255)
-	description = models.CharField(max_length=255)
+	description = models.CharField(max_length=1000)
 	notes = models.CharField(max_length=255)
 	price = models.FloatField(null=True)
 	start_date = models.DateTimeField()
@@ -175,7 +175,7 @@ class PlaceCategoryData(models.Model):
 
 class PlaceData(models.Model):
 	name = models.CharField(max_length=255)
-	description = models.CharField(max_length=255)
+	description = models.CharField(max_length=1000)
 	longitude = models.CharField(max_length=255)
 	latitude = models.CharField(max_length=255)
 	altitude = models.CharField(max_length=255)
