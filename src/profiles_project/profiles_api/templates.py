@@ -29,6 +29,11 @@ def people(request):
     return render(request, 'people.html', {'user': request.user})
 
 @login_required
+def activities(request):
+
+    return render(request, 'activities.html', {'user': request.user})
+
+@login_required
 def logout(request):
     django_logout(request)
     #return render(request, 'login.html', {})

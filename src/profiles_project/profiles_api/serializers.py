@@ -45,9 +45,14 @@ class ProfileFeedItemSerializer(serializers.ModelSerializer):
 class EventDataSerializer(serializers.ModelSerializer):
     '''A serializer for events manage'''
 
+    event_image_url = serializers.SerializerMethodField()
+
     class Meta:
         model = models.EventData
-        fields = ('id', 'user_profile', 'name', 'code', 'description', 'start_date', 'end_date', 'place', 'schedule', 'event_image')
+        fields = ('id', 'user_profile', 'name', 'code', 'description', 'start_date', 'end_date', 'place', 'schedule', 'event_image', 'event_image_url')
+
+    def get_event_image_url(self, obj):
+        return ImageSerializer(obj.event_image).data.get('image')
 
 class ChairsDataSerializer(serializers.ModelSerializer):
     '''A serializer for chairs manage.'''
@@ -92,21 +97,120 @@ class SponsorDataSerializer(serializers.ModelSerializer):
 
 class ActivityTypeDataSerializer(serializers.ModelSerializer):
 
+    image_url = serializers.SerializerMethodField()
+
     class Meta:
         model = models.ActivityTypeData
-        fields = ('id', 'name', 'description', 'created', 'show_in_app', 'event')
+        fields = ('id', 'name', 'description', 'created', 'show_in_app', 'event', 'image', 'image_url')
+
+    def get_image_url(self, obj):
+        return ImageSerializer(obj.image).data.get('image')
+
+class ActivityTypePOSTSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.ActivityTypeData
+        fields = ('name', 'description', 'show_in_app', 'image')
+        extra_kwargs = {'show_in_app': {'required': True}}
+
+    def create(self, user):
+
+        event = models.EventData.objects.get(user_profile=user)
+
+        activityType = models.ActivityTypeData(
+            name = self.data.get('name'),
+            description = self.data.get('description'),
+            show_in_app = self.data.get('show_in_app'),
+            image = models.ImageData.objects.get(id=self.data.get('image')),
+            event = event
+        )
+
+        activityType.save()
+
+        return ActivityTypeDataSerializer(activityType).data
 
 class ActivityDataSerializer(serializers.ModelSerializer):
 
+    activity_type_name = serializers.SerializerMethodField()
+    date = serializers.SerializerMethodField()
+    place_name = serializers.SerializerMethodField()
+    activity_type_image = serializers.SerializerMethodField()
+
     class Meta:
         model = models.ActivityData
-        fields = ('id', 'title', 'subtitle', 'description', 'notes', 'price', 'start_date', 'end_date', 'activity_type', 'place', 'schedule')
+        fields = ('id', 'title', 'subtitle', 'description', 'notes', 'price', 'start_date', 'end_date', 'activity_type', 'place', 'schedule', 'activity_type_name', 'date', 'place_name', 'activity_type_image')
+
+    def get_activity_type_name(self, obj):
+        return obj.activity_type.name
+
+    def get_date(self, obj):
+        return str(obj.start_date) + ' - ' + str(obj.end_date)
+
+    def get_place_name(self, obj):
+        return obj.place.name
+
+    def get_activity_type_image(self, obj):
+        return ImageSerializer(obj.activity_type.image).data.get('image')
+
+class ActivityPOSTSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.ActivityData
+        fields = ('title', 'subtitle', 'description', 'notes', 'price', 'start_date', 'end_date', 'activity_type', 'place')
+        extra_kwargs = {'price': {'required': True}}
+
+    def create(self, user):
+
+        event = models.EventData.objects.get(user_profile=user)
+        schedule = models.ScheduleData.objects.get(event=event)
+        placeCategories = models.PlaceCategoryData.objects.filter(event=event)
+
+        activity = models.ActivityData(
+            title = self.data.get('title'),
+            subtitle = self.data.get('subtitle'),
+            description = self.data.get('description'),
+            notes = self.data.get('notes'),
+            price = self.data.get('price'),
+            start_date = self.data.get('start_date'),
+            end_date = self.data.get('end_date'),
+            activity_type = models.ActivityTypeData.objects.get(id=self.data.get('activity_type'), event=event),
+            place = models.PlaceData.objects.get(id=self.data.get('place'), place_category__in=placeCategories),
+            schedule = schedule
+        )
+
+        activity.save()
+
+        return ActivityDataSerializer(activity).data
 
 class ActivityPeopleDataSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.ActivityPeopleData
         fields = ('id', 'activity', 'person')
+
+class ActivityPeoplePOSTSerializer(serializers.ModelSerializer):
+
+    person = serializers.ListField(required=True)
+
+    class Meta:
+        model = models.ActivityPeopleData
+        fields = ('activity', 'person')
+
+    def create(self, user):
+        activityPeople = []
+        activity = models.ActivityData.objects.get(id=self.data.get('activity'))
+
+        for person in self.data.get('person'):
+
+            activityPerson = models.ActivityPeopleData(
+                activity = activity,
+                person = models.PeopleData.objects.get(id=person)
+            )
+
+            activityPerson.save()
+            activityPeople.append(activityPerson)
+
+        return ActivityPeopleDataSerializer(activityPeople, many=True).data
 
 class PeopleDataSerializer(serializers.ModelSerializer):
 
@@ -236,5 +340,11 @@ class EventPOSTSerializer(serializers.ModelSerializer):
 
         print(event)
         event.save()
+
+        schedule = models.ScheduleData(
+            event = event
+        )
+
+        schedule.save()
 
         return EventDataSerializer(event).data
