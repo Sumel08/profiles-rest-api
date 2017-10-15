@@ -245,6 +245,21 @@ class ActivityTypeDataViewSet(viewsets.ModelViewSet):
     queryset = models.ActivityTypeData.objects.all()
     permission_classes = (permissions.GenericPermissions,)
 
+    def list(self, request):
+        event = models.EventData.objects.get(user_profile=request.user)
+        activitiesType = models.ActivityTypeData.objects.filter(event=event)
+        return Response(serializers.ActivityTypeDataSerializer(activitiesType, many=True).data)
+
+    def create(self, request):
+        serializer = serializers.ActivityTypePOSTSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        try:
+            result = serializer.create(request.user)
+            return Response(result)
+        except Exception as err:
+            return Response({'detail': str(err)}, status=500)
+
 class ActivityDataViewSet(viewsets.ModelViewSet):
 
     authentication_classes = (TokenAuthentication,)
@@ -252,12 +267,39 @@ class ActivityDataViewSet(viewsets.ModelViewSet):
     queryset = models.ActivityData.objects.all()
     permission_classes = (permissions.GenericPermissions,)
 
+    def list(self, request):
+        event = models.EventData.objects.get(user_profile=request.user)
+        schedule = models.ScheduleData.objects.get(event=event)
+        activities = models.ActivityData.objects.filter(schedule=schedule)
+
+        return Response(serializers.ActivityDataSerializer(activities, many=True).data)
+
+    def create(self, request):
+        serializer = serializers.ActivityPOSTSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        try:
+            result = serializer.create(request.user)
+            return Response(result)
+        except Exception as err:
+            return Response({'detail': str(err)}, status=500)
+
 class ActivityPeopleDataViewSet(viewsets.ModelViewSet):
 
     authentication_classes = (TokenAuthentication,)
     serializer_class = serializers.ActivityPeopleDataSerializer
     queryset = models.ActivityPeopleData.objects.all()
     permission_classes = (permissions.GenericPermissions,)
+
+    def create(self, request):
+        serializer = serializers.ActivityPeoplePOSTSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        try:
+            result = serializer.create(request.user)
+            return Response(result)
+        except Exception as err:
+            return Response({'detail': str(err)}, status=500)
 
 class PeopleDataViewSet(viewsets.ModelViewSet):
 

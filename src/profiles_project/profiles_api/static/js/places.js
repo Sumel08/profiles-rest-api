@@ -133,6 +133,7 @@ function updatePlaceCategoryTable() {
 
         $("#select_placeCategory").append('<option value={0}>{1}</option>'.format(value.id, value.name));
       });
+      $('#select_placeCategory').selectpicker('refresh');
   });
 }
 

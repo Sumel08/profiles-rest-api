@@ -23,6 +23,31 @@ var service_createImage = {
   'url': 'image/'
 }
 
+var service_getActivity = {
+  'method': 'GET',
+  'url': 'activity/'
+}
+
+var service_postActivity = {
+  'method': 'POST',
+  'url': 'activity/'
+}
+
+var service_getActivityType = {
+  'method': 'GET',
+  'url': 'activityType/'
+}
+
+var service_postActivityPeople = {
+  'method': 'POST',
+  'url': 'activityPeople/'
+}
+
+var service_postActivityType = {
+  'method': 'POST',
+  'url': 'activityType/'
+}
+
 var service_getPlace = {
   'method': 'GET',
   'url': 'place/'
