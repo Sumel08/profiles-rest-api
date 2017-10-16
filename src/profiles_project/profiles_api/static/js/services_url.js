@@ -23,6 +23,56 @@ var service_patchEvent = {
   'url': 'event/'
 }
 
+var service_getChair = {
+  'method': 'GET',
+  'url': 'chair/'
+}
+
+var service_postChair = {
+  'method': 'POST',
+  'url': 'chair/'
+}
+
+var service_getSponsor = {
+  'method': 'GET',
+  'url': 'sponsor/'
+}
+
+var service_postSponsor = {
+  'method': 'POST',
+  'url': 'sponsor/'
+}
+
+var service_getDeveloper = {
+  'method': 'GET',
+  'url': 'developer/'
+}
+
+var service_postDeveloper = {
+  'method': 'POST',
+  'url': 'developer/'
+}
+
+var service_getStream = {
+  'method': 'GET',
+  'url': 'stream/'
+}
+
+var service_postStream = {
+  'method': 'POST',
+  'url': 'stream/'
+}
+
+var service_getSketch = {
+  'method': 'GET',
+  'url': 'event/sketch'
+}
+
+var service_postSketch = {
+  'method': 'POST',
+  'url': 'sketch/'
+}
+
 var service_createImage = {
   'method': 'POST',
   'url': 'image/'

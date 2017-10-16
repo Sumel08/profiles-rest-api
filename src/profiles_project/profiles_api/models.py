@@ -120,7 +120,7 @@ class ScheduleData(models.Model):
 		return self.event.name
 
 class StreamData(models.Model):
-	url = models.URLField()
+	url = models.CharField(max_length=255)
 	description = models.CharField(max_length=255)
 	event = models.ForeignKey('EventData')
 

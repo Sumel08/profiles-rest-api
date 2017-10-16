@@ -210,21 +210,33 @@
 											<span class="nav-tabs-title">Tasks:</span>
 											<ul class="nav nav-tabs" data-tabs="tabs">
 												<li class="active">
-													<a href="#profile" data-toggle="tab">
+													<a href="#chairs" data-toggle="tab">
 														<i class="material-icons">bug_report</i>
-														Bugs
+														Chairs
 													<div class="ripple-container"></div></a>
 												</li>
 												<li class="">
-													<a href="#messages" data-toggle="tab">
+													<a href="#sponsors" data-toggle="tab">
 														<i class="material-icons">code</i>
-														Website
+														Sponsors
 													<div class="ripple-container"></div></a>
 												</li>
 												<li class="">
-													<a href="#settings" data-toggle="tab">
+													<a href="#stream" data-toggle="tab">
 														<i class="material-icons">cloud</i>
-														Server
+														Stream
+													<div class="ripple-container"></div></a>
+												</li>
+												<li class="">
+													<a href="#sketch" data-toggle="tab">
+														<i class="material-icons">cloud</i>
+														Sketch
+													<div class="ripple-container"></div></a>
+												</li>
+												<li class="">
+													<a href="#developers" data-toggle="tab">
+														<i class="material-icons">cloud</i>
+														Developers
 													<div class="ripple-container"></div></a>
 												</li>
 											</ul>
@@ -234,188 +246,74 @@
 
 								<div class="card-content">
 									<div class="tab-content">
-										<div class="tab-pane active" id="profile">
-											<table class="table">
-												<tbody>
-													<tr>
-														<td>
-															<div class="checkbox">
-																<label>
-																	<input type="checkbox" name="optionsCheckboxes" checked>
-																</label>
-															</div>
-														</td>
-														<td>Sign contract for "What are conference organizers afraid of?"</td>
-														<td class="td-actions text-right">
-															<button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-simple btn-xs">
-																<i class="material-icons">edit</i>
-															</button>
-															<button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-																<i class="material-icons">close</i>
-															</button>
-														</td>
-													</tr>
-													<tr>
-														<td>
-															<div class="checkbox">
-																<label>
-																	<input type="checkbox" name="optionsCheckboxes">
-																</label>
-															</div>
-														</td>
-														<td>Lines From Great Russian Literature? Or E-mails From My Boss?</td>
-														<td class="td-actions text-right">
-															<button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-simple btn-xs">
-																<i class="material-icons">edit</i>
-															</button>
-															<button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-																<i class="material-icons">close</i>
-															</button>
-														</td>
-													</tr>
-													<tr>
-														<td>
-															<div class="checkbox">
-																<label>
-																	<input type="checkbox" name="optionsCheckboxes">
-																</label>
-															</div>
-														</td>
-														<td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
-														</td>
-														<td class="td-actions text-right">
-															<button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-simple btn-xs">
-																<i class="material-icons">edit</i>
-															</button>
-															<button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-																<i class="material-icons">close</i>
-															</button>
-														</td>
-													</tr>
-													<tr>
-														<td>
-															<div class="checkbox">
-																<label>
-																	<input type="checkbox" name="optionsCheckboxes" checked>
-																</label>
-															</div>
-														</td>
-														<td>Create 4 Invisible User Experiences you Never Knew About</td>
-														<td class="td-actions text-right">
-															<button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-simple btn-xs">
-																<i class="material-icons">edit</i>
-															</button>
-															<button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-																<i class="material-icons">close</i>
-															</button>
-														</td>
-													</tr>
-												</tbody>
+										<div class="tab-pane active" id="chairs">
+											<table class="table table-hover">
+													<thead class="text-warning">
+														<th></th>
+														<th>Name</th>
+														<th>Email</th>
+														<th>Phone</th>
+													</thead>
+													<tbody>
+
+													</tbody>
 											</table>
+											<button type="button" title="Create Place Category" class="btn btn-primary pull-right" onclick="$('#selectChairs').modal('show')">Select Chairs</button>
 										</div>
-										<div class="tab-pane" id="messages">
-											<table class="table">
-												<tbody>
-													<tr>
-														<td>
-															<div class="checkbox">
-																<label>
-																	<input type="checkbox" name="optionsCheckboxes" checked>
-																</label>
-															</div>
-														</td>
-														<td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
-														</td>
-														<td class="td-actions text-right">
-															<button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-simple btn-xs">
-																<i class="material-icons">edit</i>
-															</button>
-															<button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-																<i class="material-icons">close</i>
-															</button>
-														</td>
-													</tr>
-													<tr>
-														<td>
-															<div class="checkbox">
-																<label>
-																	<input type="checkbox" name="optionsCheckboxes">
-																</label>
-															</div>
-														</td>
-														<td>Sign contract for "What are conference organizers afraid of?"</td>
-														<td class="td-actions text-right">
-															<button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-simple btn-xs">
-																<i class="material-icons">edit</i>
-															</button>
-															<button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-																<i class="material-icons">close</i>
-															</button>
-														</td>
-													</tr>
-												</tbody>
+										<div class="tab-pane" id="sponsors">
+											<table class="table table-hover">
+													<thead class="text-warning">
+														<th></th>
+														<th>Name</th>
+														<th>Email</th>
+														<th>Phone</th>
+													</thead>
+													<tbody>
+
+													</tbody>
 											</table>
+											<button type="button" title="Create Place Category" class="btn btn-primary pull-right" onclick="$('#selectSponsors').modal('show')">Select Sponsors</button>
 										</div>
-										<div class="tab-pane" id="settings">
-											<table class="table">
-												<tbody>
-													<tr>
-														<td>
-															<div class="checkbox">
-																<label>
-																	<input type="checkbox" name="optionsCheckboxes">
-																</label>
-															</div>
-														</td>
-														<td>Lines From Great Russian Literature? Or E-mails From My Boss?</td>
-														<td class="td-actions text-right">
-															<button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-simple btn-xs">
-																<i class="material-icons">edit</i>
-															</button>
-															<button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-																<i class="material-icons">close</i>
-															</button>
-														</td>
-													</tr>
-													<tr>
-														<td>
-															<div class="checkbox">
-																<label>
-																	<input type="checkbox" name="optionsCheckboxes" checked>
-																</label>
-															</div>
-														</td>
-														<td>Flooded: One year later, assessing what was lost and what was found when a ravaging rain swept through metro Detroit
-														</td>
-														<td class="td-actions text-right">
-															<button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-simple btn-xs">
-																<i class="material-icons">edit</i>
-															</button>
-															<button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-																<i class="material-icons">close</i>
-															</button>
-														</td>
-													</tr>
-													<tr>
-														<td>
-															<div class="checkbox">
-																<label>
-																	<input type="checkbox" name="optionsCheckboxes">
-																</label>
-															</div>
-														</td>
-														<td>Sign contract for "What are conference organizers afraid of?"</td>
-														<td class="td-actions text-right">
-															<button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-simple btn-xs">
-																<i class="material-icons">edit</i>
-															</button>
-															<button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
-																<i class="material-icons">close</i>
-															</button>
-														</td>
-													</tr>
-												</tbody>
+										<div class="tab-pane" id="stream">
+											<table class="table table-hover">
+													<thead class="text-warning">
+														<th>Description</th>
+														<th>URL</th>
+													</thead>
+													<tbody>
+
+													</tbody>
 											</table>
+											<button type="button" title="Create Place Category" class="btn btn-primary pull-right" onclick="$('#selectStreams').modal('show')">Create Stream</button>
+										</div>
+										<div class="tab-pane" id="sketch">
+											<div class="card">
+												<div class="card-header card-chart" data-background-color="red">
+													<!-- <div class="ct-chart" id="completedTasksChart"></div> -->
+													<!-- <img id="place_image" src="http://localhost:8080/media/Cancun_01.jpg" alt=""> -->
+													<img id="sketch_image" src="" alt="">
+												</div>
+												<div class="card-footer">
+													<div class="stats pull-right">
+														<!-- <i class="material-icons">access_time</i> campaign sent 2 days ago -->
+														<button type="button" class="btn btn-primary pull-right" name="button" onclick="$('#change_sketch').modal('show');">Change sketch</button>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="tab-pane" id="developers">
+											<table class="table table-hover">
+													<thead class="text-warning">
+														<th></th>
+														<th>Name</th>
+														<th>Email</th>
+														<th>Phone</th>
+													</thead>
+													<tbody>
+
+													</tbody>
+											</table>
+											<button type="button" title="Create Place Category" class="btn btn-primary pull-right" onclick="$('#selectDevelopers').modal('show')">Select Developers</button>
 										</div>
 									</div>
 								</div>
@@ -490,6 +388,221 @@
 
 									<button type="button" data-dismiss="modal" class="btn btn-primary pull-left">Close</button>
 									<button type="button" onclick="changePlace()" class="btn btn-primary pull-right">Change Place</button>
+								</div>
+						</div>
+					</div>
+				</div>
+
+      </div>
+
+    </div>
+  </div>
+
+	<!-- Modal -->
+  <div class="modal fade" id="selectChairs" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+				<div class="row">
+					<div class="col-lg-12 col-md-12">
+						<div class="card">
+								<div class="card-header" data-background-color="orange">
+										<h4 class="title">Chairs</h4>
+										<p class="category">Select the event chairs</p>
+								</div>
+								<div class="card-content">
+									<form id="create_changeChairs_form" name="login_form" method="POST">
+										<div class="row">
+
+											<div class="col-md-12">
+												<div class="form-group label-floating">
+													<select id="select_changeChairs" class="selectpicker" multiple data-style="btn btn-primary btn-round" title="Select the chairs" data-size="7" required>
+															<option disabled selected>Select a place</option>
+													</select>
+												</div>
+											</div>
+										</div>
+
+									</form>
+
+									<button type="button" data-dismiss="modal" class="btn btn-primary pull-left">Close</button>
+									<button type="button" onclick="changeChairs()" class="btn btn-primary pull-right">Change Chairs</button>
+								</div>
+						</div>
+					</div>
+				</div>
+
+      </div>
+
+    </div>
+  </div>
+
+	<!-- Modal -->
+  <div class="modal fade" id="selectSponsors" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+				<div class="row">
+					<div class="col-lg-12 col-md-12">
+						<div class="card">
+								<div class="card-header" data-background-color="orange">
+										<h4 class="title">Sponsors</h4>
+										<p class="category">Select the event sponsors</p>
+								</div>
+								<div class="card-content">
+									<form id="create_changeSponsors_form" name="login_form" method="POST">
+										<div class="row">
+
+											<div class="col-md-12">
+												<div class="form-group label-floating">
+													<select id="select_changeSponsors" class="selectpicker" multiple data-style="btn btn-primary btn-round" title="Select the sponsors" data-size="7" required>
+															<option disabled selected>Select a sponsor</option>
+													</select>
+												</div>
+											</div>
+										</div>
+
+									</form>
+
+									<button type="button" data-dismiss="modal" class="btn btn-primary pull-left">Close</button>
+									<button type="button" onclick="changeSponsors()" class="btn btn-primary pull-right">Change Sponsors</button>
+								</div>
+						</div>
+					</div>
+				</div>
+
+      </div>
+
+    </div>
+  </div>
+
+	<!-- Modal -->
+  <div class="modal fade" id="selectDevelopers" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+				<div class="row">
+					<div class="col-lg-12 col-md-12">
+						<div class="card">
+								<div class="card-header" data-background-color="orange">
+										<h4 class="title">Developers</h4>
+										<p class="category">Select the event developers</p>
+								</div>
+								<div class="card-content">
+									<form id="create_changeDevelopers_form" name="login_form" method="POST">
+										<div class="row">
+
+											<div class="col-md-12">
+												<div class="form-group label-floating">
+													<select id="select_changeDevelopers" class="selectpicker" multiple data-style="btn btn-primary btn-round" title="Select the developers" data-size="7" required>
+															<option disabled selected>Select a developer</option>
+													</select>
+												</div>
+											</div>
+										</div>
+
+									</form>
+
+									<button type="button" data-dismiss="modal" class="btn btn-primary pull-left">Close</button>
+									<button type="button" onclick="changeDevelopers()" class="btn btn-primary pull-right">Change Developers</button>
+								</div>
+						</div>
+					</div>
+				</div>
+
+      </div>
+
+    </div>
+  </div>
+
+	<!-- Modal -->
+  <div class="modal fade" id="selectStreams" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+				<div class="row">
+					<div class="col-lg-12 col-md-12">
+						<div class="card">
+								<div class="card-header" data-background-color="orange">
+										<h4 class="title">Streams</h4>
+										<p class="category">Create the event stream</p>
+								</div>
+								<div class="card-content">
+									<form id="create_changeStreams_form" name="login_form" method="POST">
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-group label-floating">
+													<label class="control-label">Description</label>
+													<input id="stream_description" type="text" class="form-control" required>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-group label-floating">
+													<label class="control-label">URL</label>
+													<input id="stream_url" type="text" class="form-control" required>
+												</div>
+											</div>
+										</div>
+
+
+									</form>
+
+									<button type="button" data-dismiss="modal" class="btn btn-primary pull-left">Close</button>
+									<button type="button" onclick="createStream()" class="btn btn-primary pull-right">Create Stream</button>
+								</div>
+						</div>
+					</div>
+				</div>
+
+      </div>
+
+    </div>
+  </div>
+
+	<!-- Modal -->
+  <div class="modal fade" id="change_sketch" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content-->
+      <div class="modal-content">
+				<div class="row">
+					<div class="col-lg-12 col-md-12">
+						<div class="card">
+								<div class="card-header" data-background-color="orange">
+										<h4 class="title">Event Sketch</h4>
+										<p class="category">Change the event sketch</p>
+								</div>
+								<div class="card-content">
+									<form id="create_changeSketch_form" name="login_form" method="POST">
+										<div class="row">
+											<div class="col-md-12">
+												<div class="form-group label-floating">
+													<label class="control-label">Description</label>
+													<input id="sketch_description" type="text" class="form-control" required>
+												</div>
+											</div>
+										</div>
+										<div class="row">
+
+											<div class="col-md-12">
+												<div class="form-group label-floating">
+													<label class="control-label">SKETCH</label>
+													<input id="sketchImage" type="file" class="form-control" required>
+												</div>
+											</div>
+										</div>
+										<hr>
+
+									</form>
+
+									<button type="button" data-dismiss="modal" class="btn btn-primary pull-left">Close</button>
+									<button type="button" onclick="changeSketch()" class="btn btn-primary pull-right">Change Sketch</button>
 								</div>
 						</div>
 					</div>

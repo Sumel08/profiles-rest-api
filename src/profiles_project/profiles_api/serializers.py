@@ -61,23 +61,107 @@ class EventDataSerializer(serializers.ModelSerializer):
 class ChairsDataSerializer(serializers.ModelSerializer):
     '''A serializer for chairs manage.'''
 
+    person_data = serializers.SerializerMethodField()
+
     class Meta:
         model = models.ChairsData
-        fields = ('id', 'event', 'person')
+        fields = ('id', 'event', 'person', 'person_data')
+
+    def get_person_data(self, obj):
+        return PeopleDataSerializer(obj.person).data
+
+class ChairsPOSTSerializer(serializers.Serializer):
+
+    people = serializers.ListField(required=True)
+
+    def create(self, user):
+
+        event = models.EventData.objects.get(user_profile=user)
+        chairs = models.ChairsData.objects.filter(event=event)
+
+        for chair in chairs:
+            chair.delete()
+
+        for person in self.data.get('people'):
+            chair = models.ChairsData(
+                event = event,
+                person = models.PeopleData.objects.get(id=person)
+            )
+            chair.save()
+
+        chairs = models.ChairsData.objects.filter(event=event)
+
+        return ChairsDataSerializer(chairs, many=True).data
 
 class SketchDataSerializer(serializers.ModelSerializer):
     '''A serializer for sketch event.'''
 
+    image_url_url = serializers.SerializerMethodField()
+
     class Meta:
         model = models.SketchData
-        fields = ('id', 'event', 'image_url', 'description')
+        fields = ('id', 'event', 'image_url', 'description', 'image_url_url')
+
+    def get_image_url_url(self, obj):
+        return ImageSerializer(obj.image_url).data.get('image')
+
+class SketchPOSTSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.SketchData
+        fields = ('image_url', 'description')
+
+    def create(self, user):
+        event = models.EventData.objects.get(user_profile=user)
+
+        sketches = models.SketchData.objects.filter(event=event)
+        for sketch in sketches:
+            sketch.delete()
+
+        sketch = models.SketchData(
+            description = self.data.get('description'),
+            image_url = models.ImageData.objects.get(id=self.data.get('image_url')),
+            event = event
+        )
+
+        sketch.save()
+
+        return SketchDataSerializer(sketch).data
 
 class DevelopersDataSerializer(serializers.ModelSerializer):
     '''A serializer for developers event.'''
 
+    person_data = serializers.SerializerMethodField()
+
     class Meta:
         model = models.DevelopersData
-        fields = ('id', 'event', 'person')
+        fields = ('id', 'event', 'person', 'person_data')
+
+    def get_person_data(self, obj):
+        return PeopleDataSerializer(obj.person).data
+
+class DeveloperPOSTSerializer(serializers.Serializer):
+
+    people = serializers.ListField(required=True)
+
+    def create(self, user):
+
+        event = models.EventData.objects.get(user_profile=user)
+        developers = models.DevelopersData.objects.filter(event=event)
+
+        for developer in developers:
+            developer.delete()
+
+        for person in self.data.get('people'):
+            developer = models.DevelopersData(
+                event = event,
+                person = models.PeopleData.objects.get(id=person)
+            )
+            developer.save()
+
+        developers = models.DevelopersData.objects.filter(event=event)
+
+        return DevelopersDataSerializer(developers, many=True).data
 
 class ScheduleDataSerializer(serializers.ModelSerializer):
     '''A serializer for schedule data event.'''
@@ -93,11 +177,58 @@ class StreamDataSerializer(serializers.ModelSerializer):
         model = models.StreamData
         fields = ('id', 'url', 'description', 'event')
 
+class StreamPOSTSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = models.StreamData
+        fields = ('url', 'description')
+
+    def create(self, user):
+        event = models.EventData.objects.get(user_profile=user)
+
+        stream = models.StreamData(
+            url = self.data.get('url'),
+            description = self.data.get('description'),
+            event = event
+        )
+
+        stream.save()
+
+        return StreamDataSerializer(stream).data
+
 class SponsorDataSerializer(serializers.ModelSerializer):
+
+    person_data = serializers.SerializerMethodField()
 
     class Meta:
         model = models.SponsorData
-        fields = ('id', 'person', 'event')
+        fields = ('id', 'person', 'event', 'person_data')
+
+    def get_person_data(self, obj):
+        return PeopleDataSerializer(obj.person).data
+
+class SponsorPOSTSerializer(serializers.Serializer):
+
+    people = serializers.ListField(required=True)
+
+    def create(self, user):
+
+        event = models.EventData.objects.get(user_profile=user)
+        sponsors = models.SponsorData.objects.filter(event=event)
+
+        for sponsor in sponsors:
+            sponsor.delete()
+
+        for person in self.data.get('people'):
+            sponsor = models.SponsorData(
+                event = event,
+                person = models.PeopleData.objects.get(id=person)
+            )
+            sponsor.save()
+
+        sponsors = models.SponsorData.objects.filter(event=event)
+
+        return SponsorDataSerializer(sponsors, many=True).data
 
 class ActivityTypeDataSerializer(serializers.ModelSerializer):
 

@@ -202,6 +202,15 @@ class EventDataViewSet(viewsets.ModelViewSet):
         else:
             return Response({}, status=status.HTTP_404_NOT_FOUND)
 
+    @list_route(methods=['GET'], permission_classes=[IsAuthenticated])
+    def sketch(self, request):
+        event = models.EventData.objects.get(user_profile=request.user)
+        try:
+            sketch = models.SketchData.objects.get(event=event)
+            return Response(serializers.SketchDataSerializer(sketch).data)
+        except Exception as err:
+            return Response({'detail': str(err)}, status=500)
+
 class ChairsDataViewSet(viewsets.ModelViewSet):
     '''Handles creating, reading and updating chairs.'''
 
@@ -209,6 +218,16 @@ class ChairsDataViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.ChairsDataSerializer
     queryset = models.ChairsData.objects.all()
     permission_classes = (permissions.ManageOwnEvents,)
+
+    def create(self, request):
+        serializer = serializers.ChairsPOSTSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        try:
+            result = serializer.create(request.user)
+            return Response(result)
+        except Exception as err:
+            return Response({'detail': str(err)}, status=500)
 
 class SketchDataViewSet(viewsets.ModelViewSet):
     '''Handles creating, reading and updating sketch.'''
@@ -218,6 +237,16 @@ class SketchDataViewSet(viewsets.ModelViewSet):
     queryset = models.SketchData.objects.all()
     permission_classes = (permissions.ManageOwnEvents,)
 
+    def create(self, request):
+        serializer = serializers.SketchPOSTSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        # try:
+        result = serializer.create(request.user)
+        return Response(result)
+        # except Exception as err:
+        #     return Response({'detail': str(err)}, status=500)
+
 class DevelopersDataViewSet(viewsets.ModelViewSet):
     '''Handles creating, reading, and updating developers.'''
 
@@ -225,6 +254,16 @@ class DevelopersDataViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.DevelopersDataSerializer
     queryset = models.DevelopersData.objects.all()
     permission_classes = (permissions.ManageOwnEvents,)
+
+    def create(self, request):
+        serializer = serializers.DeveloperPOSTSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        try:
+            result = serializer.create(request.user)
+            return Response(result)
+        except Exception as err:
+            return Response({'detail': str(err)}, status=500)
 
 class ScheduleDataViewSet(viewsets.ModelViewSet):
     '''Handles creating, reading and updating schedule.'''
@@ -241,12 +280,32 @@ class StreamDataViewSet(viewsets.ModelViewSet):
     queryset = models.StreamData.objects.all()
     permission_classes = (permissions.GenericPermissions,)
 
+    def create(self, request):
+        serializer = serializers.StreamPOSTSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        try:
+            result = serializer.create(request.user)
+            return Response(result)
+        except Exception as err:
+            return Response({'detail': str(err)}, status=500)
+
 class SponsorDataViewSet(viewsets.ModelViewSet):
 
     authentication_classes = (TokenAuthentication,)
     serializer_class = serializers.SponsorDataSerializer
     queryset = models.SponsorData.objects.all()
     permission_classes = (permissions.GenericPermissions,)
+
+    def create(self, request):
+        serializer = serializers.SponsorPOSTSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        try:
+            result = serializer.create(request.user)
+            return Response(result)
+        except Exception as err:
+            return Response({'detail': str(err)}, status=500)
 
 class ActivityTypeDataViewSet(viewsets.ModelViewSet):
 
