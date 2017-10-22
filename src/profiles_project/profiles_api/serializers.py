@@ -315,6 +315,8 @@ class ActivityPOSTSerializer(serializers.ModelSerializer):
 
         activity.save()
 
+        activity = models.ActivityData.objects.get(id=activity.id)
+
         return ActivityDataSerializer(activity).data
 
 class ActivityPeopleDataSerializer(serializers.ModelSerializer):

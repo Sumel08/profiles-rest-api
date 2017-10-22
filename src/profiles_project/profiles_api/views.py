@@ -339,7 +339,7 @@ class ActivityDataViewSet(viewsets.ModelViewSet):
     def list(self, request):
         event = models.EventData.objects.get(user_profile=request.user)
         schedule = models.ScheduleData.objects.get(event=event)
-        activities = models.ActivityData.objects.filter(schedule=schedule)
+        activities = models.ActivityData.objects.filter(schedule=schedule).order_by('start_date')
 
         return Response(serializers.ActivityDataSerializer(activities, many=True).data)
 
