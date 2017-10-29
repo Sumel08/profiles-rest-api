@@ -134,6 +134,7 @@ class ActivityTypeData(models.Model):
 	created = models.DateTimeField(auto_now_add=True)
 	show_in_app = models.BooleanField(default=False)
 	image = models.ForeignKey('ImageData', null=False)
+	show_speakers_in_app = models.BooleanField(default=False)
 	event = models.ForeignKey('EventData')
 
 class ActivityData(models.Model):

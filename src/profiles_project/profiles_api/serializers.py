@@ -236,7 +236,7 @@ class ActivityTypeDataSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.ActivityTypeData
-        fields = ('id', 'name', 'description', 'created', 'show_in_app', 'event', 'image', 'image_url')
+        fields = ('id', 'name', 'description', 'created', 'show_in_app', 'event', 'image', 'image_url', 'show_speakers_in_app')
 
     def get_image_url(self, obj):
         return ImageSerializer(obj.image).data.get('image')

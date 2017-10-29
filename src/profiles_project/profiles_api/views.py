@@ -211,6 +211,33 @@ class EventDataViewSet(viewsets.ModelViewSet):
         except Exception as err:
             return Response({'detail': str(err)}, status=500)
 
+    @detail_route(methods=['GET'], permission_classes=[IsAuthenticated])
+    def images(self, request, pk):
+        event = models.EventData.objects.get(pk=pk)
+        images = []
+        images.append(event.event_image)
+        images.append(models.SketchData.objects.get(event=event).image_url)
+        activitiesType = models.ActivityTypeData.objects.filter(event=event)
+        print(activitiesType)
+        for x in activitiesType:
+            images.append(x.image)
+        people = models.PeopleData.objects.filter(event=event)
+        for x in people:
+            images.append(x.photo)
+        placeCategory = models.PlaceCategoryData.objects.filter(event=event)
+        places = models.PlaceData.objects.filter(place_category__in=placeCategory)
+        for x in places:
+            images.append(x.image)
+        # images.append([x.image for x in activitiesType])
+
+        # images = sum(images, [])
+        print(images)
+        images = set(list(images))
+        # print(images)
+
+        # return Response('OK')
+        return Response(serializers.ImageSerializer(images, many=True).data)
+
 class ChairsDataViewSet(viewsets.ModelViewSet):
     '''Handles creating, reading and updating chairs.'''
 
